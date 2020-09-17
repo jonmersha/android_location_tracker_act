@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MyLoc</string>
+    <string name="title_activity_map">Map</string>
+    <string name="inter_search_key">serach location</string>
+    <string name="location_name">location name</string>
+    <string name="location_description">location description</string>
+    <string name="location_capture_time">capture time</string>
+    <string name="permission_denied_explanation">permission is not allawd</string>
+    <string name="settings">setting</string>
+    <string name="permission_rationale">permission</string>
+    <string name="no_location_detected">no lactions Detected</string>
+</resources>
