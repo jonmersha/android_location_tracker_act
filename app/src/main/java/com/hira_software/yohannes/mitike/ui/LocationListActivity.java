@@ -14,16 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hira_software.yohannes.mitike.adaptors.LocationAdaptor;
 import com.hira_software.yohannes.mitike.R;
-import com.hira_software.yohannes.mitike.ViewModel.ListViewModel;
+import com.hira_software.yohannes.mitike.ViewModel.LocationListViewModel;
 import com.hira_software.yohannes.mitike.database.LocationModel;
 
 import java.util.List;
 
-public class LocationList extends AppCompatActivity {
+public class LocationListActivity extends AppCompatActivity {
 
     RecyclerView listOfLocation;
     LocationAdaptor locationAdaptor;
-    ListViewModel listViewModel;
+    LocationListViewModel listViewModel;
 
     EditText searchKey;
 
@@ -44,7 +44,7 @@ public class LocationList extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //Toast.makeText(ViewLocation.this, "textChanged", Toast.LENGTH_SHORT).show();
-                listViewModel.getFilterList(charSequence.toString()).observe(LocationList.this, new Observer<List<LocationModel>>() {
+                listViewModel.getFilterList(charSequence.toString()).observe(LocationListActivity.this, new Observer<List<LocationModel>>() {
                     @Override
                     public void onChanged(List<LocationModel> locationEntities) {
                         locationAdaptor.setLocationModelList(locationEntities);
@@ -67,7 +67,7 @@ public class LocationList extends AppCompatActivity {
         locationAdaptor =new LocationAdaptor();
         listOfLocation.setAdapter(locationAdaptor);
 
-        listViewModel=new ViewModelProvider(this).get(ListViewModel.class);
+        listViewModel=new ViewModelProvider(this).get(LocationListViewModel.class);
 
         listViewModel.getLocationList().observe(this, new Observer<List<LocationModel>>() {
             @Override

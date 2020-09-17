@@ -12,14 +12,14 @@ import com.hira_software.yohannes.mitike.database.LocationModel;
 
 import java.util.List;
 
-public class ListViewModel extends AndroidViewModel {
+public class LocationListViewModel extends AndroidViewModel {
 
 
     Repository repository;
     private LiveData<List<LocationModel>> locationList;
     private LiveData<List<LocationModel>> filterList;
 
-    public ListViewModel(@NonNull Application application) {
+    public LocationListViewModel(@NonNull Application application) {
         super(application);
         repository=new Repository(application);
     }

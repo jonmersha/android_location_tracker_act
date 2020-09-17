@@ -19,8 +19,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hira_software.yohannes.mitike.R;
-import com.hira_software.yohannes.mitike.ViewModel.EditLocationViewModel;
-import com.hira_software.yohannes.mitike.ViewModel.RegistrationViewModel;
+import com.hira_software.yohannes.mitike.ViewModel.LocationUpdateViewModel;
+import com.hira_software.yohannes.mitike.ViewModel.LocationRegistrationViewModel;
 import com.hira_software.yohannes.mitike.database.LocationModel;
 
 
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     Button viewLocation;
     Button viewMapActivity;
 
-    private RegistrationViewModel registrationViewModel;
-    EditLocationViewModel locationViewModel;
+    private LocationRegistrationViewModel registrationViewModel;
+    LocationUpdateViewModel locationViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         this.locationProvider = locationManager.getBestProvider(criteria, false);
 
         registrationViewModel=new ViewModelProvider(this)
-                .get(RegistrationViewModel.class);
+                .get(LocationRegistrationViewModel.class);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -84,8 +84,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         } else {
             Toast.makeText(this, "Location not enabled", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
 
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     public void listLocation(View view) {
 
-        Intent locationList=new Intent(this, LocationList.class);
+        Intent locationList=new Intent(this, LocationListActivity.class);
         startActivity(locationList);
     }
 
@@ -127,9 +125,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         locationEntity.setLatitude(this.latitude);
         locationEntity.setLongitude(this.longitude);
         locationEntity.setRegistration_date(systemDatetime);
-
         registrationViewModel.insert(locationEntity);
 
+        //location
+            Intent intent=new Intent(this,LocationListActivity.class);
+            startActivity(intent);
         }
     }
 

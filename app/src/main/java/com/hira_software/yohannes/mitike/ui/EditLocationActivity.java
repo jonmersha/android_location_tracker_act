@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import com.hira_software.yohannes.mitike.R;
-import com.hira_software.yohannes.mitike.ViewModel.EditLocationViewModel;
+import com.hira_software.yohannes.mitike.ViewModel.LocationUpdateViewModel;
 import com.hira_software.yohannes.mitike.database.LocationModel;
 import com.hira_software.yohannes.mitike.database.LocationData;
 
@@ -28,7 +28,7 @@ public class EditLocationActivity extends AppCompatActivity {
     TextView latitude;
     LocationModel location;
 
-    EditLocationViewModel editLocationViewModel;
+    LocationUpdateViewModel editLocationViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,7 @@ public class EditLocationActivity extends AppCompatActivity {
          longitude.setText(""+location.getLongitude());
          latitude.setText(""+location.getLatitude());
 
-        editLocationViewModel=new ViewModelProvider(this).get(EditLocationViewModel.class);
+        editLocationViewModel=new ViewModelProvider(this).get(LocationUpdateViewModel.class);
 
     }
 
@@ -58,14 +58,12 @@ public class EditLocationActivity extends AppCompatActivity {
         MapActivity.lang=location.getLongitude();
         MapActivity.lat=location.getLatitude();
         MapActivity.myLocation=location.getName();
+
         Intent intent=new Intent(this, MapActivity.class);
         startActivity(intent);
     }
-
     public void updateLocationInfo(View view) {
-
         String systemDatetime= new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault()).format(new Date());
-
         location.setName(locationName.getText().toString());
         location.setDescription(locationDescription.getText().toString());
         location.setRegistration_date(systemDatetime);
