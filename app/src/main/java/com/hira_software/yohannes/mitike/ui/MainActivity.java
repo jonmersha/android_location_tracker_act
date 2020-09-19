@@ -38,13 +38,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private LocationManager locationManager;
 
+    Location location;
+
 
     EditText locationName;
     EditText locationDescription;
 
-    Button saveLocation;
-    Button viewLocation;
-    Button viewMapActivity;
+
     Criteria criteria;
 
     private LocationRegistrationViewModel registrationViewModel;
@@ -62,15 +62,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         registrationViewModel=new ViewModelProvider(this)
                 .get(LocationRegistrationViewModel.class);
 
-
     }
 
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        Toast.makeText(this, "Location Provider  Disabled", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+        locationSetting();
+
+    }
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
         this.latitude=location.getLatitude();
         this.longitude=location.getLongitude();
-
     }
 
     public void showOnMap(View view) {
@@ -117,17 +125,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         super.onResume();
         locationSetting();
 
-
     }
 
 
     public void locationSetting(){
-
         locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
         criteria = new Criteria();
         this.locationProvider = locationManager.getBestProvider(criteria, false);
-        this.locationProvider = locationManager.getBestProvider(criteria, false);
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
@@ -143,11 +147,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Location location = locationManager.getLastKnownLocation(locationProvider);
         locationManager.requestLocationUpdates(locationProvider,400,10,this);
         if (location != null) {
-            Toast.makeText(this, locationDescription +"has been selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,  locationProvider+"has been selected", Toast.LENGTH_SHORT).show();
             onLocationChanged(location);
         } else {
             Toast.makeText(this, "Location not enabled", Toast.LENGTH_SHORT).show();
-        }
+}
 
     }
 }

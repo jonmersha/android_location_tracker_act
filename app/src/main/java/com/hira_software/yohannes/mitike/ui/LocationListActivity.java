@@ -81,7 +81,9 @@ public class LocationListActivity extends AppCompatActivity {
     }
 
     public void createNewLocation(View view) {
-        finish();
+       // finish();
+       // finish();
+
         Intent intent=new Intent(this,MainActivity.class);
         startActivity(intent);
     }
