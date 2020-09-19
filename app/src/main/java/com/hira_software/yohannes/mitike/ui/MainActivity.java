@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     Button saveLocation;
     Button viewLocation;
     Button viewMapActivity;
+    Criteria criteria;
 
     private LocationRegistrationViewModel registrationViewModel;
     LocationUpdateViewModel locationViewModel;
@@ -57,33 +58,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         locationName = findViewById(R.id.location_name_edit);
         locationDescription = findViewById(R.id.location_description);
 
-        locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        this.locationProvider = locationManager.getBestProvider(criteria, false);
-
+        locationSetting();
         registrationViewModel=new ViewModelProvider(this)
                 .get(LocationRegistrationViewModel.class);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
-                        99);
-            }
-
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(locationProvider);
-
-        if (location != null) {
-            System.out.println("Provider " + locationDescription + " has been selected.");
-            onLocationChanged(location);
-        } else {
-            Toast.makeText(this, "Location not enabled", Toast.LENGTH_SHORT).show();
-        }
     }
 
 
@@ -136,9 +115,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     protected void onResume() {
         super.onResume();
+        locationSetting();
+
+
+    }
+
+
+    public void locationSetting(){
+
+        locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        criteria = new Criteria();
+        this.locationProvider = locationManager.getBestProvider(criteria, false);
+        this.locationProvider = locationManager.getBestProvider(criteria, false);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
             } else {
                 // No explanation needed; request the permission
@@ -149,6 +140,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
             return;
         }
+        Location location = locationManager.getLastKnownLocation(locationProvider);
         locationManager.requestLocationUpdates(locationProvider,400,10,this);
+        if (location != null) {
+            Toast.makeText(this, locationDescription +"has been selected", Toast.LENGTH_SHORT).show();
+            onLocationChanged(location);
+        } else {
+            Toast.makeText(this, "Location not enabled", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

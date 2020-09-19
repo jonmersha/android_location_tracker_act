@@ -1,8 +1,10 @@
 package com.hira_software.yohannes.mitike.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +46,7 @@ public class LocationListActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //Toast.makeText(ViewLocation.this, "textChanged", Toast.LENGTH_SHORT).show();
-                listViewModel.getFilterList(charSequence.toString()).observe(LocationListActivity.this, new Observer<List<LocationModel>>() {
+                listViewModel.getFilterList("%"+charSequence.toString()+"%").observe(LocationListActivity.this, new Observer<List<LocationModel>>() {
                     @Override
                     public void onChanged(List<LocationModel> locationEntities) {
                         locationAdaptor.setLocationModelList(locationEntities);
@@ -75,6 +77,18 @@ public class LocationListActivity extends AppCompatActivity {
                 locationAdaptor.setLocationModelList(locationEntities);
             }
         });
+
+    }
+
+    public void createNewLocation(View view) {
+        finish();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void resetSearch(View view) {
+        searchKey.setText("");
+
 
     }
 }

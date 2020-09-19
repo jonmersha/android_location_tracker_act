@@ -19,8 +19,10 @@ public interface LocationDataAccessObject {
 
     @Query("SELECT * FROM location_table")
     LiveData<List<LocationModel>> getAllLocation();
+
     @Delete
     void deleteLocation(LocationModel locationModel);
-    @Query("SELECT * FROM location_table where location_name like :searchKey||'%' or description like:searchKey||'%'")
+
+    @Query("SELECT * FROM location_table where location_name like :searchKey or description like:searchKey")
     LiveData<List<LocationModel>> getLocations(String searchKey);
 }

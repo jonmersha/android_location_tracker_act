@@ -9,4 +9,8 @@
     <string name="settings">setting</string>
     <string name="permission_rationale">permission</string>
     <string name="no_location_detected">no lactions Detected</string>
+    <string name="delete">delete</string>
+    <string name="update">update</string>
+    <string name="back">back</string>
+    <string name="please_inter_location_name">Please inter Location Name</string>
 </resources>
