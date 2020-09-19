@@ -10,20 +10,20 @@
     android:id="@+id/card">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="10dp"
         >
+
         <TextView
             android:id="@+id/location_name_edit"
             android:layout_width="match_parent"
-            android:text="@string/location_name"
-            android:textSize="20dp"
-            android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            />
+            android:text="@string/location_name"
+
+            android:textSize="20dp"
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/location_description"
             android:layout_width="match_parent"
