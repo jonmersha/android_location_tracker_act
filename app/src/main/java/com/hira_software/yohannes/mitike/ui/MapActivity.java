@@ -35,7 +35,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMaxZoomPreference(17f);
+        mMap.setMaxZoomPreference(22f);
         mMap.setMinZoomPreference(15f);
         LatLng myLocationMap= new LatLng(lat,lang);
         mMap.addMarker(new MarkerOptions().position(myLocationMap).title(myLocation));

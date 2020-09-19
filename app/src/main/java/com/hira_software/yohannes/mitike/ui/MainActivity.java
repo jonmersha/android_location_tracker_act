@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     public void listLocation(View view) {
 
+        finish();
         Intent locationList=new Intent(this, LocationListActivity.class);
         startActivity(locationList);
     }
@@ -141,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
                         99);
             }
-
             return;
         }
         Location location = locationManager.getLastKnownLocation(locationProvider);
